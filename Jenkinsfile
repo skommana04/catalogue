@@ -27,16 +27,17 @@ pipeline {
                         def appName = packageJson.name
                       
                         echo "Application Name: ${appName}"
-                        echo "Application Version: ${appVersion}"
-
-
-                
+                        echo "Application Version: ${appVersion}"               
                 }
             }
         }
-        stage('Test'){
+        stage('Install Dependencies'){
             steps {
-                echo "Testing"
+                script {
+                    sh """
+                        npm install
+                    """
+                }
             }
         }
         stage('Deploy') {
