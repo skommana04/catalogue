@@ -40,23 +40,20 @@ pipeline {
                 }
             }
         }
-        stage('Deploy') {
-            // input {
-            //     message "continue?"
-            //     ok "yes"
-            //     submitter "medha"
-            //     parameters {
-            //         string(name: 'PERSON', defaultValue: 'Mr.Jenkins', description: 'who should i say')
-            //     }
-            // }
-            when {
-                expression { "$params.DEPLOY" == "true" }
+        stage ('Build Image'){
+            steps {
+                script {
+                    withAWS(region:'us-east-1',credentials:'aws-creds') {
+                        sh """
+
+                        """
+                    } 
+                }
 
             }
-            steps{
-                echo "Depying"
-            }
         }
+        
+       
 
     }
     post {
