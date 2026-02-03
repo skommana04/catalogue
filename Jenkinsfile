@@ -55,9 +55,11 @@ pipeline {
         }
         // here you need to select scanner tool and send to sonar server
         stage ('Sonar Scan') {
+            environment {
+                def scannerHome = tool 'sonar-8.0'
+            }            
             steps{
-                script{
-                    def scannerHome = tool 'sonar-8.0'
+                script{                    
                     withSonarQubeEnv('sonar-server') {
                         sh "${scannerHome}/bin/sonar-scanner"
                     }
