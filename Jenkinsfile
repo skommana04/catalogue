@@ -7,11 +7,15 @@ pipeline {
     }
     
     options {
-        timeout(time: 10, unit: 'MINUTES')
+        // timeout(time: 10, unit: 'MINUTES')
         disableConcurrentBuilds()
     }
     environment {
         COURSE = "Jenkins"
+        ACC_ID = "654654431182"
+        PROJECT = "roboshop"
+	    COMPONENT = "catalogue"
+
     }
 
 
@@ -35,23 +39,47 @@ pipeline {
             steps {
                 script {
                     sh """
-                        npm install
+                       npm install
                     """
                 }
             }
         }
-        stage ('Build Image'){
-            steps {
+        stage('Unit Testing'){
+            steps{
                 script {
-                    withAWS(region:'us-east-1',credentials:'aws-creds') {
-                        sh """
-
-                        """
-                    } 
+                    sh """
+                        npm test
+                    """
                 }
-
             }
         }
+        // here you need to select scanner tool and send to sonar server
+        // stage ('Sonar Scan'){
+        //     steps{
+        //         sript{
+        //             withSonarQubeEnv('sonar-server') {
+        //         sh 'mvn clean package sonar:sonar'
+        //       }
+
+
+        //         }
+        //     }
+        // }
+        // stage ('Build Image'){
+        //     steps {
+        //         script {
+        //             withAWS(region:'us-east-1',credentials:'aws-creds') {
+        //                 sh """
+        //                     aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin ${ACC_ID}.dkr.ecr.us-east-1.amazonaws.com
+        //                     docker build -t ${ACC_ID}.dkr.ecr.us-east-1.amazonaws.com/${PROJECT}/${COMPONENT}:${appVersion} .
+        //                     docker images
+        //                     docker push ${ACC_ID}.dkr.ecr.us-east-1.amazonaws.com/${PROJECT}/${COMPONENT}:${appVersion}
+        //                 """
+        //             } 
+        //         }
+
+        //     }
+        // }
         
        
 
