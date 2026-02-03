@@ -54,13 +54,22 @@ pipeline {
             }
         }
         // here you need to select scanner tool and send to sonar server
-        // stage ('Sonar Scan'){
+        stage ('Sonar Scan'){
+            environment {
+                def sonar = tool 'sonar-8.0'
+            }    
+             steps{
+                 sript{
+                    withSonarQubeEnv('sonar-server') {
+                        sh "${sonar}/bin/sonar-scanner -Dsonar.projectKey=roboshop"
+                    }
+                }
+            }
+        }
+        // stage ('Quality Gate') {
         //     steps{
-        //         sript{
-        //             withSonarQubeEnv('sonar-server') {
-        //         sh 'mvn clean package sonar:sonar'
-        //       }
-
+        //         timeout(time: 2, unit: 'MINUTE') {
+        //         waitForQualityGate abortPipeline: true
 
         //         }
         //     }
