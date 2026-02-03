@@ -59,7 +59,7 @@ pipeline {
                 def sonar = tool 'sonar-8.0'
             }    
              steps{
-                 sript{
+                 script{
                     withSonarQubeEnv('sonar-server') {
                         sh "${sonar}/bin/sonar-scanner -Dsonar.projectKey=roboshop"
                     }
