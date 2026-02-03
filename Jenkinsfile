@@ -61,7 +61,7 @@ pipeline {
              steps{
                  script{
                     withSonarQubeEnv('sonar-server') {
-                        sh "${sonar}/bin/sonar-scanner -Dsonar.projectKey=roboshop"
+                        sh "${sonar}/bin/sonar-scanner"
                     }
                 }
             }
