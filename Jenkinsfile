@@ -6,13 +6,13 @@ pipeline {
     }
     stages {
         stage ('build') {
-            script {
-                sh """
-                    echo "Hi darling"
-                """
+                steps{
+                     script {
+                        sh """
+                            echo "Hi darling"
+                        """
             }
-
-        }
+            }
+        } 
     }
-    
 }
