@@ -1,18 +1,18 @@
 pipeline {
     agent {
         node {
-            label slave1
+            label 'slave1'
         }
     }
     stages {
         stage ('build') {
                 steps{
-                     script {
+                    script {
                         sh """
                             echo "Hi darling"
                         """
-            }
-            }
+                    }
+                }
         } 
     }
 }
