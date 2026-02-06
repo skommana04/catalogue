@@ -34,7 +34,7 @@ pipeline {
         }
         stage('Dependency checks'){
             environment{
-                GITHUB_API = "https://github.com"
+                GITHUB_API = "https://api.github.com"
                 GITHUB_OWNER = "skommana04"
                 GITHUB_REPO = "catalogue"
                 GITHUB_TOKEN = credentials('GITHUB_TOKEN')
