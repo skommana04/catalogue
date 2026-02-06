@@ -4,6 +4,11 @@ pipeline {
             label 'slave1'
         }
     }
+    environment{
+        ACC_ID = "654654431182"
+        GITHUB_REPO = "catalogue"
+        GITHUB_PROJECT = "roboshop"
+    }
     stages{
         stage('Read Version'){
             steps{
@@ -77,11 +82,14 @@ pipeline {
             }
         }
         stage('Build Image'){
-            steps{
+            steps{     
                 script{
-                    sh '''
+                    withCredentials([string(credentialsId: 'aws-creds', variable: 'AWS_CREDS')]) {                   
+                    sh """
                         echo "building image"
-                    '''
+                        docker build -t ${ACC_ID}.dkr.ecr.us-east-1.amazonaws.com/${GITHUB_PROJECT}/${GITHUB_REPO}:latest .
+                    """
+                    }
                 }
             }
         }
