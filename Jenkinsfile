@@ -37,11 +37,11 @@ pipeline {
                 GITHUB_API = "https://github.com"
                 GITHUB_OWNER = "skommana04"
                 GITHUB_REPO = "catalogue"
+                GITHUB_TOKEN = credentials('GITHUB_TOKEN')
             }
             steps{
                 script{
-                    withCredentials([string(credentialsId: 'GITHUB_TOKEN', variable: 'GITHUB_TOKEN')]){
-                        sh """
+                        sh '''
                         echo "Fetching Dependabot alerts..."
                         response=$(curl -s \
                             -H "Authorization: token ${GITHUB_TOKEN}" \
@@ -72,8 +72,7 @@ pipeline {
                         else
                             echo "✅ No OPEN HIGH/CRITICAL Dependabot alerts found"
                         fi
-                        """
-                    }
+                        '''
                 }
             }
 
