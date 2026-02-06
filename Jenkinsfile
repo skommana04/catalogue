@@ -75,12 +75,27 @@ pipeline {
                         '''
                 }
             }
-
-
         }
-
+        stage('Build Image'){
+            steps{
+                script{
+                    sh '''
+                        echo "building image"
+                    '''
+                }
+            }
+        }
+        stage('Trivy Scan'){
+            steps{
+                script{
+                    sh """
+                        echo "scanning the image with Trivy"
+                    """
+                }
+            }
+        }
     }
-
+    
     post{
         always{
             echo "pipeline finished"
