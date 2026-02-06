@@ -5,7 +5,7 @@ pipeline {
         }
     }
     parameters {
-        choice(name: 'deploy_to', choices['dev', 'test', 'prod'],description: 'Env to deploy')
+        choice(name: 'deploy_to', choices: ['dev', 'test', 'prod'], description: 'Env to deploy')
     }
     environment{
         ACC_ID = "654654431182"
@@ -120,7 +120,7 @@ pipeline {
                         propagate: false
                         parameters: [
                             string(name: 'appVersion', value: "${appVersion}"),
-                            string(name: 'deplot_to', value: "${params.deploy_to}")
+                            string(name: 'deploy_to', value: "${params.deploy_to}")
                         ]
 
 
