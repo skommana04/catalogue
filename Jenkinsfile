@@ -10,7 +10,7 @@ pipeline {
             steps{
                 script{
                     sh '''
-                        "npm install"
+                        npm install
                     '''
                 }
             }
@@ -19,7 +19,7 @@ pipeline {
             steps{
                 script{
                     sh '''
-                        "npm test"
+                        npm test
                     '''
                 }
             }
