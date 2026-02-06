@@ -84,7 +84,8 @@ pipeline {
         stage('Build Image'){
             steps{     
                 script{
-                    withCredentials([string(credentialsId: 'aws-creds', variable: 'AWS_CREDS')]) {                   
+                    //withCredentials([string(credentialsId: 'aws-creds', variable: 'AWS_CREDS')]) {  
+                    withAWS(credentials: 'aws-creds', region: 'us-east-1') {               
                     sh """
                         echo "building image"
                         docker build -t ${ACC_ID}.dkr.ecr.us-east-1.amazonaws.com/${GITHUB_PROJECT}/${GITHUB_REPO}:latest .
