@@ -88,9 +88,12 @@ pipeline {
                     withAWS(credentials: 'aws-creds', region: 'us-east-1') {               
                     sh """
                         echo "building image"
-                        docker build -t ${ACC_ID}.dkr.ecr.us-east-1.amazonaws.com/${GITHUB_PROJECT}/${GITHUB_REPO}:${appVersion} .
+                        echo "login to ecr"
+                        aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin ${ACC_ID}.dkr.ecr.us-east-1.amazonaws.com
+
+                        docker build -t ${ACC_ID}.dkr.ecr.us-east-1.amazonaws.com/${GITHUB_PROJECT}/${GITHUB_REPO}:${env.appVersion} .
                         docker images
-                        docker push ${ACC_ID}.dkr.ecr.us-east-1.amazonaws.com/${GITHUB_PROJECT}/${GITHUB_REPO}:${appVersion}
+                        docker push ${ACC_ID}.dkr.ecr.us-east-1.amazonaws.com/${GITHUB_PROJECT}/${GITHUB_REPO}:${env.appVersion}
                     """
                     }
                 }
