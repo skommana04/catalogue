@@ -14,8 +14,8 @@ pipeline {
             steps{
                 script{
                     def packageJson = readJSON file: 'package.json'
-                    appVersion = packageJson.version
-                    echo "app Version: ${appVersion}"
+                    env.appVersion = packageJson.version
+                    echo "app Version: ${env.appVersion}"
                 }
             }
         }
@@ -88,7 +88,9 @@ pipeline {
                     withAWS(credentials: 'aws-creds', region: 'us-east-1') {               
                     sh """
                         echo "building image"
-                        docker build -t ${ACC_ID}.dkr.ecr.us-east-1.amazonaws.com/${GITHUB_PROJECT}/${GITHUB_REPO}:latest .
+                        docker build -t ${ACC_ID}.dkr.ecr.us-east-1.amazonaws.com/${GITHUB_PROJECT}/${GITHUB_REPO}:${appVersion} .
+                        docker images
+                        docker push ${ACC_ID}.dkr.ecr.us-east-1.amazonaws.com/${GITHUB_PROJECT}/${GITHUB_REPO}:${appVersion}
                     """
                     }
                 }
@@ -99,6 +101,7 @@ pipeline {
                 script{
                     sh """
                         echo "scanning the image with Trivy"
+                        trivy image --scanners vuln --pkg-types os --severity CRITICAL,HIGH,MEDIUM --exit-code 1 --format table ${ACC_ID}.dkr.ecr.us-east-1.amazonaws.com/${GITHUB_PROJECT}/${GITHUB_REPO}:${env.appVersion}
                     """
                 }
             }
