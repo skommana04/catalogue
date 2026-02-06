@@ -4,6 +4,9 @@ pipeline {
             label 'slave1'
         }
     }
+    parameters {
+        choice(name: 'deploy_to', choices['dev', 'test', 'prod'],description: 'Env to deploy')
+    }
     environment{
         ACC_ID = "654654431182"
         GITHUB_REPO = "catalogue"
@@ -106,6 +109,21 @@ pipeline {
                         echo "scanning the image with Trivy"
                     '''
                         /* trivy image --scanners vuln --pkg-types os --severity CRITICAL,HIGH,MEDIUM --exit-code 1 --format table ${ACC_ID}.dkr.ecr.us-east-1.amazonaws.com/${GITHUB_PROJECT}/${GITHUB_REPO}:${env.appVersion} */                    
+                }
+            }
+        }
+        stage('Trigger Deploy'){
+            steps{
+                script{
+                    build job: "../../${GITHUB_REPO}-deploy"
+                        wait: false
+                        propagate: false
+                        parameters: [
+                            string(name: 'appVersion', value: "${appVersion}"),
+                            string(name: 'deplot_to', value: "${params.deploy_to}")
+                        ]
+
+
                 }
             }
         }
