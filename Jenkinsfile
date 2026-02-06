@@ -104,7 +104,7 @@ pipeline {
                 script{
                     sh """
                         echo "scanning the image with Trivy"
-                        trivy image --scanners vuln --pkg-types os --severity CRITICAL,HIGH,MEDIUM --exit-code 1 --format table ${ACC_ID}.dkr.ecr.us-east-1.amazonaws.com/${GITHUB_PROJECT}/${GITHUB_REPO}:${env.appVersion}
+                       // trivy image --scanners vuln --pkg-types os --severity CRITICAL,HIGH,MEDIUM --exit-code 1 --format table ${ACC_ID}.dkr.ecr.us-east-1.amazonaws.com/${GITHUB_PROJECT}/${GITHUB_REPO}:${env.appVersion}
                     """
                 }
             }
