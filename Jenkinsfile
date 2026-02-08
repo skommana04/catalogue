@@ -13,6 +13,8 @@ pipeline {
             steps{
                 script{
                     sh """
+                        env.IMAGE_TAG = env.GIT_COMMIT
+                        echo "IMAGE_TAG: ${env.IMAGE_TAG}"
                         env
                     """               
                 }
