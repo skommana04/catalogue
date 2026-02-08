@@ -13,7 +13,7 @@ pipeline {
             steps{
                 script{
                     sh """
-                        IMAGE_TAG = $GIT_COMMIT
+                        IMAGE_TAG=$GIT_COMMIT
                         echo $IMAGE_TAG
                         env
                     """               
