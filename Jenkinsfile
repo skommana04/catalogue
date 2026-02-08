@@ -7,7 +7,7 @@ pipeline {
     // }
     // environment{
     //     IMAGE_TAG = env.GIT_COMMIT
-    // }
+    //  }
     stages {
         stage('GET COMMIT ID'){
             steps{
@@ -20,7 +20,7 @@ pipeline {
         stage('Install dependencies'){
             when{
                 allOf{
-                    expression { env.GIT_BRANCH.startsWith('feature/')}
+                    expression { env.GIT_BRANCH.startsWith('f*/')}
                     //expression { params.ENV == 'dev' }
                 }
             }
