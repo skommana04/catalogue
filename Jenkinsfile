@@ -11,11 +11,9 @@ pipeline {
     stages {
         stage('GET COMMIT ID'){
             steps{
-                script{
-                    sh """
-                        echo $GIT_COMMIT                        
-                        env
-                    """               
+                script{  
+                    def IMAGE_TAG = env.GIT_COMMIT 
+                    echo "IMAGE_TAG: ${IMAGE_TAG}"            
                 }
             }       
         }
