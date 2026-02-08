@@ -32,6 +32,11 @@ pipeline {
             }
         }
         stage('unit tests') {
+            when{
+                allOf{
+                    expression { env.GIT_BRANCH.startsWith('f')}
+                }
+            }
             steps{
                 script{
                     sh """
@@ -41,6 +46,11 @@ pipeline {
             }
         }
         stage('Build Image') {
+            when{
+                allOf{
+                    expression { env.GIT_BRANCH.startsWith('f')}
+                }
+            }
             steps{
                 script{
                     sh """
@@ -51,6 +61,11 @@ pipeline {
             }
         }
         stage('Image Scan') {
+            when{
+                allOf{
+                    expression { env.GIT_BRANCH.startsWith('f')}
+                }
+            }
             steps{
                 script{
                     sh """
@@ -61,6 +76,11 @@ pipeline {
             }
         }
         stage('Push Image') {
+            when{
+                allOf{
+                    expression { env.GIT_BRANCH.startsWith('f')}
+                }
+            }
             steps{
                 script{
                     sh """
@@ -70,6 +90,11 @@ pipeline {
             }
         }
         stage('Approval to Deploy') {
+            when{
+                allOf{
+                    expression { env.GIT_BRANCH.startsWith('f')}
+                }
+            }
             steps{
                 script{
                     sh """
@@ -79,6 +104,11 @@ pipeline {
             }
         }
         stage('Trigger Deploy') {
+            when{
+                allOf{
+                    expression { env.GIT_BRANCH.startsWith('f')}
+                }
+            }
             steps{
                 script{
                     sh """
