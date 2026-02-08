@@ -119,7 +119,7 @@ pipeline {
         stage('Trigger Deploy'){
             steps{
                 script{
-                    build job: "../../${GITHUB_REPO}-deploy/${GITHUB_REPO}-deploy",
+                    build job: "../${GITHUB_REPO}-deploy",
                         wait: false,
                         propagate: false,
                         parameters: [
