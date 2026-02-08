@@ -116,17 +116,18 @@ pipeline {
                 }
             }
         }
-        stage('Trigger Deploy') {
-            when{
-                allOf{
-                    expression { env.GIT_BRANCH.startsWith('f')}
-                }
-            }
+        stage('Trigger Deploy'){
             steps{
                 script{
-                    sh """
-                        echo "Trigger Deploy"         
-                    """
+                    build job: "../../${GITHUB_REPO}-deploy/${GITHUB_REPO}-deploy",
+                        wait: false,
+                        propagate: false,
+                        parameters: [
+                            string(name: 'image_tag', value: "${env.IMAGE_TAG}"),
+                            string(name: 'deploy_to', value: "dev" )
+                        ]
+
+
                 }
             }
         }
