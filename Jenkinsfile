@@ -2,9 +2,9 @@ pipeline {
     agent{
         node 'slave1'
     }
-    parameters{
-        choice(name: 'ENV', choices: ['dev', 'test', 'prod'], description: 'Deploy_to')
-    }
+    // parameters{
+    //     choice(name: 'ENV', choices: ['dev', 'test', 'prod'], description: 'Deploy_to')
+    // }
     // environment{
     //     IMAGE_TAG = env.GIT_COMMIT
     // }
