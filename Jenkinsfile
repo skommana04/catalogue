@@ -5,15 +5,14 @@ pipeline {
     parameters{
         choice(name: 'ENV', choices: ['dev', 'test', 'prod'], description: 'Deploy_to')
     }
-    environment{
-        IMAGE_TAG = env.GIT_COMMIT
-    }
+    // environment{
+    //     IMAGE_TAG = env.GIT_COMMIT
+    // }
     stages {
         stage('GET COMMIT ID'){
             steps{
                 script{
                     sh """
-                        echo "${IMAGE_TAG}"
                         env
                     """               
                 }
