@@ -20,7 +20,7 @@ pipeline {
         stage('Install dependencies'){
             when{
                 allOf{
-                    expression { env.GIT_BRANCH.startswith('feature/')}
+                    expression { env.GIT_BRANCH.startsWith('feature/')}
                     //expression { params.ENV == 'dev' }
                 }
             }
