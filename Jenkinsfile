@@ -19,7 +19,7 @@ pipeline {
         }
         stage('Install dependencies'){
             when{
-                allof{
+                allOf{
                     expression { env.GIT_BRANCH.startswith('feature/')}
                     //expression { params.ENV == 'dev' }
                 }
@@ -37,16 +37,6 @@ pipeline {
                 script{
                     sh """
                         npm test                     
-                    """
-                }
-            }
-        }
-        stage('Build Code') {
-            steps{
-                script{
-                    sh """
-                        npm run build
-                     
                     """
                 }
             }
