@@ -12,7 +12,7 @@ pipeline {
         stage('GET COMMIT ID'){
             steps{
                 script{  
-                    def IMAGE_TAG = env.GIT_COMMIT 
+                    def IMAGE_TAG = env.GIT_COMMIT.take(4)
                     echo "IMAGE_TAG: ${IMAGE_TAG}"            
                 }
             }       
