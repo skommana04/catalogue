@@ -17,17 +17,17 @@ pipeline {
                 }
             }       
         }
-        stage('Build the code'){
-            // when{
-            //     allof{
-            //         expression { env.GIT_BRANCH.startswith('feature/')}
-            //         expression { params.ENV == 'dev' }
-            //     }
-            // }
+        stage('Install dependencies'){
+            when{
+                allof{
+                    expression { env.GIT_BRANCH.startswith('feature/')}
+                    //expression { params.ENV == 'dev' }
+                }
+            }
             steps{
                 script{
                     sh """
-                        echo "hi"
+                        npm install                        
                     """
                 }
             }
@@ -36,7 +36,16 @@ pipeline {
             steps{
                 script{
                     sh """
-                        echo "Unit Tests"
+                        npm test                     
+                    """
+                }
+            }
+        }
+        stage('Build Code') {
+            steps{
+                script{
+                    sh """
+                        npm run build
                      
                     """
                 }
