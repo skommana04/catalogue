@@ -7,17 +7,19 @@ pipeline {
     }
     stages {
         stage('GET COMMIT ID'){
-            script{
-                env.IMAGE_TAG = env.GIT_COMMIT
-            }
+            steps{
+                script{
+                    env.IMAGE_TAG = env.GIT_COMMIT
+                }
+            }       
         }
         stage('Build the code'){
-            when{
-                allof{
-                    expression { env.GIT_BRANCH.startswith('feature/')}
-                    expression { params.ENV == 'dev' }
-                }
-            }
+            // when{
+            //     allof{
+            //         expression { env.GIT_BRANCH.startswith('feature/')}
+            //         expression { params.ENV == 'dev' }
+            //     }
+            // }
             steps{
                 script{
                     sh """
